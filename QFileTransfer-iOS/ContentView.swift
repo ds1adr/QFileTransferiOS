@@ -8,17 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var viewModel: ViewModel
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            HStack {
+                VStack {
+                    HStack {
+                        Text("Host IP:")
+                        TextField("", text: $viewModel.hostIP)
+                    }
+                    HStack {
+                        Text("Port:")
+                        TextField("", text: $viewModel.port)
+                    }
+                }
+                Button("Connect") {
+                    viewModel.connect()
+                }
+            }
+            Spacer()
         }
         .padding()
     }
 }
 
 #Preview {
-    ContentView()
+    ContentView(viewModel: ViewModel())
 }
